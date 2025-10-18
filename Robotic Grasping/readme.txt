@@ -24,13 +24,26 @@ tra_ur3_play
 保存在
 ~/tracer_ws/src/camera_ros/images
 
+python3 ~/tracer_ws/src/camera_ros/camera_control/scripts/get_photo.py
+
 graspnet
 ~/graspnet-baseline/doc/d405_data/cola 输入文件夹
 输入四个文件，color，depth由相机拍，workspace_mask由sam给出，meta.mat固定
+CUDA_VISIBLE_DEVICES=0 python demo.py --checkpoint_path logs/log_rs/checkpoint-rs.tar
+
+
+ python3 demo1.py --checkpoint_path logs/log_rs/checkpoint-rs.tar \
+    --data_dir doc/d405_data/cola \
+    --median_ksize 5 --mask_kernel 5 \
+    --voxel_downsample 0.003 \
+    --remove_outlier --outlier_nb_neighbors 30 --outlier_std_ratio 1.5 \
+    --top_k 10 --score_thresh 0.2
 
 sam2
 输入文件夹~/Grounded-SAM-2/notebooks/images/my_images
 输出文件加~/Grounded-SAM-2/outputs/test_output
+  cd ~/Desktop/tracer_ws/Grounded-SAM-2（复件）
+  python3 grounded_sam2_local_demo.py
 
 
 关电只关底盘和机械臂，其他不用关，机械臂关电中间的绿色按钮
